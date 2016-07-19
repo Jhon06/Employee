@@ -1,15 +1,9 @@
-package inheritanceAndPolymorphism;
 
 import java.util.Scanner;
 
 public class EmployeeMain {
 	Employee a[];
-	EmployeeMain(int n)
-	{
-		a=new Employee[n];
-		
-	}
-	public void sort_salary()
+	public void sort_salary(Employee a[])
 	{
 		Employee temp;
 		for(int i=0;i<a.length-1;i++)
@@ -25,50 +19,31 @@ public class EmployeeMain {
 			}
 		}
 	}
-	public boolean search(int empId)
+	public boolean search(int empId,Employee a[])
 	{
 		for(int i=0;i<a.length;i++)
 		{
 			if(a[i].getEmpNo()==empId)
 			{
+				System.out.println("Enter employee name:	"+a[i].getName());
+				System.out.println("Enter employee number:	"+a[i].getEmpNo());
+				System.out.println("Enter employee designation:	"+a[i].getDegnisation());
+				System.out.println("Enter employee bloodgroup:	"+a[i].getBloodgroup());
+				System.out.println("Enter employee salary:	"+a[i].getSalary());
 				return true;
 			}
 		}
 		return false;
 	}
-	public void inputData()
-	{
-		Scanner in=new Scanner(System.in);
-		for(int i=0;i<a.length;i++)
-		{
-			System.out.println("Enter employee name\n");
-			String name=new String();
-			name=in.next();
-			a[i].setName(name);
-			System.out.println("Enter employee number\n");
-			int num=in.nextInt();
-			a[i].setEmpNo(num);
-			System.out.println("Enter employee designation\n");
-			String d=in.next();
-			a[i].setDegnisation(d);
-			System.out.println("Enter employee bloodgroup\n");
-			String b=in.next();
-			a[i].setBloodgroup(b);
-			System.out.println("Enter employee salary\n");
-			int s=in.nextInt();
-			a[i].setSalary(s);
-		}
-	in.close();
-	}
-	public void display()
+		public void display(Employee a[])
 	{
 		for(int i=0;i<a.length;i++)
 		{
-			System.out.println("Enter employee name/n"+a[i].getName());
-			System.out.println("Enter employee number/n"+a[i].getEmpNo());
-			System.out.println("Enter employee designation/n"+a[i].getDegnisation());
-			System.out.println("Enter employee bloodgroup/n"+a[i].getBloodgroup());
-			System.out.println("Enter employee salary/n"+a[i].getSalary());
+			System.out.println("Enter employee name:	"+a[i].getName());
+			System.out.println("Enter employee number:	"+a[i].getEmpNo());
+			System.out.println("Enter employee designation:	"+a[i].getDegnisation());
+			System.out.println("Enter employee bloodgroup:	"+a[i].getBloodgroup());
+			System.out.println("Enter employee salary:	"+a[i].getSalary());
 		}
 	}
 	public static void main(String args[])
@@ -76,11 +51,53 @@ public class EmployeeMain {
 		System.out.println("Enter the number of Employees");
 		Scanner in=new Scanner(System.in);
 		int n=in.nextInt();
-		EmployeeMain e=new EmployeeMain(n);
-		e.inputData();
-		e.sort_salary();
-		e.display();
-		in.close();
+		EmployeeMain e=new EmployeeMain();
+		Employee e1=new Employee();
+		e.a=new Employee[n];
+		for(int i=0;i<n;i++)
+		{
+			System.out.println("Enter employee name");
+			String name=new String();
+			name=in.next();
+			System.out.println("Enter employee number");
+			int num=in.nextInt();
+			System.out.println("Enter employee designation");
+			String d=in.next();
+			System.out.println("Enter employee bloodgroup");
+			String b=in.next();
+			System.out.println("Enter employee salary");
+			int s=in.nextInt();
+			e1.setBloodgroup(b);
+			e1.setDegnisation(d);
+			e1.setEmpNo(num);
+			e1.setName(name);
+			e1.setSalary(s);
+			e.a[i]=e1;
+			e1=new Employee();
+		}
+		char ch='f';
+		int m=0;
+		while(ch!='t'){
+			System.out.println("Enter 1 to display ,2 to search , 3 to sort according to salary and 4 to exit");
+			m=in.nextInt();
+			if(m==1){
+				e.display(e.a);
+			}
+			else if(m==2){
+				System.out.println("Enter the empId");
+				int empId=in.nextInt();
+				System.out.println(e.search(empId, e.a));
+			}
+			else if(m==3)
+			{
+				e.sort_salary(e.a);
+			}
+			else if(m==4)
+			{
+				ch='t';
+			}
+		}
+			in.close();
 	}
 	
 }
